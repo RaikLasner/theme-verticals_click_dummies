@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>meilleur-prix-epicerie.fr — Style Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; color: #333; background: #faf3f0; line-height: 1.6; }
+
+  /* Layout */
+  .sg-wrapper { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+  .sg-header { text-align: center; margin-bottom: 56px; padding: 40px 0; border-bottom: 2px solid #e6ddd8; }
+  .sg-header .sg-logo { display:inline-flex; align-items:center; gap:12px; margin-bottom:16px; }
+  .sg-header h1 { font-family: 'Poppins', sans-serif; font-size: 40px; color: #2b2d42; letter-spacing: -0.5px; }
+  .sg-header p { font-size: 16px; color: #666; }
+
+  .sg-toc { background:#fff; border:1px solid #e6ddd8; border-radius:10px; padding:24px 28px; margin-bottom:56px; }
+  .sg-toc h2 { font-family:'Poppins',sans-serif; font-size:16px; color:#2b2d42; margin-bottom:14px; text-transform:uppercase; letter-spacing:1px; }
+  .sg-toc ol { list-style:none; display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:8px 24px; counter-reset:toc; }
+  .sg-toc li { counter-increment:toc; }
+  .sg-toc a { color:#7b1e3b; text-decoration:none; font-size:14px; font-weight:500; }
+  .sg-toc a::before { content:counter(toc) ". "; color:#c8a24a; font-weight:700; }
+  .sg-toc a:hover { text-decoration:underline; }
+
+  .sg-section { margin-bottom: 64px; scroll-margin-top: 20px; }
+  .sg-section-title { font-family:'Poppins',sans-serif; font-size:28px; color:#2b2d42; margin-bottom:8px; padding-bottom:12px; border-bottom:3px solid #7b1e3b; letter-spacing:-0.3px; }
+  .sg-section-desc { font-size:14px; color:#666; margin:16px 0 28px; max-width:720px; }
+  .sg-subsection { margin-bottom:36px; }
+  .sg-subsection-title { font-family:'Poppins',sans-serif; font-size:19px; color:#2b2d42; margin-bottom:14px; }
+
+  /* Colors */
+  .sg-colors { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:16px; }
+  .sg-color-card { background:#fff; border:1px solid #e6ddd8; border-radius:10px; overflow:hidden; }
+  .sg-color-swatch { height:90px; display:flex; align-items:flex-end; justify-content:flex-start; padding:10px 12px; color:#fff; font-size:12px; font-weight:600; }
+  .sg-color-info { padding:12px 14px; }
+  .sg-color-name { font-weight:600; font-size:13px; color:#2b2d42; margin-bottom:4px; }
+  .sg-color-hex { font-size:12px; color:#666; font-family:'SFMono-Regular',Consolas,monospace; }
+  .sg-color-usage { font-size:11px; color:#888; margin-top:6px; }
+
+  /* Type samples */
+  .sg-type-sample { background:#fff; border:1px solid #e6ddd8; border-radius:10px; padding:24px; margin-bottom:14px; }
+  .sg-type-label { font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#999; margin-bottom:10px; }
+  .sg-type-meta { font-size:12px; color:#888; margin-top:10px; font-family:monospace; }
+
+  /* Preview boxes */
+  .sg-preview { background:#fff; border:1px solid #e6ddd8; border-radius:10px; overflow:hidden; margin-bottom:16px; }
+  .sg-preview-header { background:#faf3f0; border-bottom:1px solid #e6ddd8; padding:8px 14px; font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#888; }
+  .sg-preview-body { padding:24px; display:flex; flex-wrap:wrap; gap:16px; align-items:center; }
+  .sg-preview-body--dark { background:#2b2d42; }
+
+  /* Code */
+  .sg-code { background:#2b2d42; color:#e6e6e6; border-radius:8px; padding:14px 16px; font-family:'SFMono-Regular',Consolas,monospace; font-size:12.5px; line-height:1.7; overflow-x:auto; white-space:pre; }
+  .sg-code .tok { color:#c8a24a; }
+
+  /* Tables */
+  .sg-table { width:100%; border-collapse:collapse; background:#fff; border:1px solid #e6ddd8; border-radius:10px; overflow:hidden; font-size:13.5px; }
+  .sg-table th, .sg-table td { text-align:left; padding:10px 14px; border-bottom:1px solid #f0e8e3; }
+  .sg-table th { background:#faf3f0; font-weight:600; color:#2b2d42; }
+  .sg-table tr:last-child td { border-bottom:0; }
+  .sg-table code { font-family:monospace; font-size:12.5px; color:#7b1e3b; background:#f7edf0; padding:1px 6px; border-radius:4px; }
+
+  /* Spacing */
+  .sg-spacing-item { display:flex; align-items:center; gap:16px; margin-bottom:10px; }
+  .sg-spacing-bar { background:#7b1e3b; height:18px; border-radius:3px; }
+  .sg-spacing-item .label { font-family:monospace; font-size:12px; color:#666; width:120px; }
+
+  /* Live component demo styles (mirrors production tokens) */
+  .demo-btn { font-family:'Inter',sans-serif; font-size:13px; font-weight:600; border-radius:5px; padding:8px 18px; cursor:pointer; display:inline-block; text-align:center; border:1px solid #2b2d42; background:#fff; color:#2b2d42; text-decoration:none; }
+  .demo-btn.primary { background:#7b1e3b; border-color:#7b1e3b; color:#fff; }
+  .demo-btn.primary:hover { background:#651730; border-color:#651730; }
+  .demo-btn.secondary { background:#2b2d42; border-color:#2b2d42; color:#fff; }
+  .demo-tag { display:inline-block; background:#2b2d42; font-size:12px; font-weight:500; color:#fff; border-radius:12px; padding:3px 10px; }
+  .demo-badge { border-radius:5px; padding:1px 8px; color:#fff; background:#2b2d42; font-size:12px; }
+  .demo-badge.deal { background:#c8a24a; }
+  .demo-search { display:flex; height:44px; background:#fff; border-radius:6px; overflow:hidden; box-shadow:0 2px 10px rgba(43,45,66,.12); max-width:480px; width:100%; }
+  .demo-search input { border:0; flex-grow:1; padding:0 14px; font-size:15px; color:#000; outline:none; }
+  .demo-search input::placeholder { color:#b8b8b8; }
+  .demo-search button { border:0; background:#c8a24a; color:#fff; font-weight:600; padding:0 22px; cursor:pointer; }
+  .demo-search button:hover { background:#b8923c; }
+  .demo-price { font-family:'Poppins',sans-serif; font-weight:700; color:#7b1e3b; font-size:22px; }
+  .demo-stars { display:inline-block; width:110px; height:20px; vertical-align:middle;
+    background:linear-gradient(90deg,#c8a24a 80%,#d6d6d6 80%);
+    -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='20' viewBox='0 0 110 20'%3E%3Cg fill='black'%3E%3Cpath d='M10 1l2.6 5.4 5.9.9-4.3 4.1 1 5.9L10 14.9 4.8 17.3l1-5.9L1.5 7.3l5.9-.9z'/%3E%3Cpath d='M32 1l2.6 5.4 5.9.9-4.3 4.1 1 5.9L32 14.9l-5.2 2.4 1-5.9-4.3-4.1 5.9-.9z'/%3E%3Cpath d='M54 1l2.6 5.4 5.9.9-4.3 4.1 1 5.9L54 14.9l-5.2 2.4 1-5.9-4.3-4.1 5.9-.9z'/%3E%3Cpath d='M76 1l2.6 5.4 5.9.9-4.3 4.1 1 5.9L76 14.9l-5.2 2.4 1-5.9-4.3-4.1 5.9-.9z'/%3E%3Cpath d='M98 1l2.6 5.4 5.9.9-4.3 4.1 1 5.9L98 14.9l-5.2 2.4 1-5.9-4.3-4.1 5.9-.9z'/%3E%3C/g%3E%3C/svg%3E") no-repeat;
+    mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='20' viewBox='0 0 110 20'%3E%3Cg fill='black'%3E%3Cpath d='M10 1l2.6 5.4 5.9.9-4.3 4.1 1 5.9L10 14.9 4.8 17.3l1-5.9L1.5 7.3l5.9-.9z'/%3E%3Cpath d='M32 1l2.6 5.4 5.9.9-4.3 4.1 1 5.9L32 14.9l-5.2 2.4 1-5.9-4.3-4.1 5.9-.9z'/%3E%3Cpath d='M54 1l2.6 5.4 5.9.9-4.3 4.1 1 5.9L54 14.9l-5.2 2.4 1-5.9-4.3-4.1 5.9-.9z'/%3E%3Cpath d='M76 1l2.6 5.4 5.9.9-4.3 4.1 1 5.9L76 14.9l-5.2 2.4 1-5.9-4.3-4.1 5.9-.9z'/%3E%3Cpath d='M98 1l2.6 5.4 5.9.9-4.3 4.1 1 5.9L98 14.9l-5.2 2.4 1-5.9-4.3-4.1 5.9-.9z'/%3E%3C/g%3E%3C/svg%3E") no-repeat; }
+  .demo-breadcrumb { font-size:13px; color:#666; }
+  .demo-breadcrumb a { color:#7b1e3b; text-decoration:none; }
+  .demo-breadcrumb span { margin:0 8px; color:#ccc; }
+  .demo-card { width:200px; border:1px solid #e6ddd8; border-radius:8px; padding:14px; background:#fff; }
+  .demo-card__img { height:120px; background:#faf3f0; border-radius:6px; margin-bottom:10px; }
+  .demo-card__title { font-size:14px; font-weight:600; color:#2b2d42; margin-bottom:6px; line-height:1.3; }
+  .demo-card__shop { font-size:12px; color:#7b1e3b; margin-bottom:4px; }
+  .sg-icon-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:12px; }
+  .sg-icon-item { background:#fff; border:1px solid #e6ddd8; border-radius:8px; padding:16px; text-align:center; }
+  .sg-icon-item svg { display:block; margin:0 auto 8px; }
+  .sg-icon-item span { font-size:11px; color:#888; }
+  .sg-pages { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px; }
+  .sg-page-card { background:#fff; border:1px solid #e6ddd8; border-radius:10px; padding:20px; }
+  .sg-page-card h3 { font-family:'Poppins',sans-serif; font-size:16px; color:#2b2d42; margin-bottom:6px; }
+  .sg-page-card p { font-size:13px; color:#666; }
+  .sg-page-card a { color:#7b1e3b; font-size:13px; font-weight:600; text-decoration:none; }
+  .sg-footer { margin-top:60px; padding-top:24px; border-top:2px solid #e6ddd8; text-align:center; font-size:13px; color:#999; }
+</style>
+</head>
+<body>
+<div class="sg-wrapper">
+
+  <header class="sg-header">
+    <div class="sg-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 56" width="230" height="43" aria-label="meilleur-prix-épicerie.fr">
+        <g fill="#c8a24a" transform="translate(6,8)">
+          <path d="M0 2 C0 -1, 12 -1, 12 2 C12 9, 8 12, 6 12 C4 12, 0 9, 0 2 Z"></path>
+          <rect x="5" y="12" width="2" height="9"></rect>
+          <rect x="0.5" y="21" width="11" height="2.5"></rect>
+        </g>
+        <text x="30" y="26" fill="#2b2d42" font-family="Poppins, sans-serif" font-size="18" font-weight="700" letter-spacing="-0.6">meilleur-prix-épicerie<tspan fill="#c8a24a">.fr</tspan></text>
+        <text x="30" y="43" fill="rgba(43,45,66,0.55)" font-family="Inter, sans-serif" font-size="10" font-weight="400" letter-spacing="0.4">comparateur de prix épicerie</text>
+      </svg>
+    </div>
+    <h1>Style Guide</h1>
+    <p>Design system for the grocery &amp; food price comparison site · v1.0</p>
+  </header>
+
+  <nav class="sg-toc">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#colors">Color palette</a></li>
+      <li><a href="#typography">Typography</a></li>
+      <li><a href="#buttons">Buttons</a></li>
+      <li><a href="#forms">Forms</a></li>
+      <li><a href="#spacing">Spacing &amp; layout</a></li>
+      <li><a href="#components">Components</a></li>
+      <li><a href="#icons">Icons</a></li>
+      <li><a href="#pages">Page types</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1. COLORS -->
+  <section class="sg-section" id="colors">
+    <h2 class="sg-section-title">1. Color palette</h2>
+    <p class="sg-section-desc">The identity is built on a warm bordeaux paired with a refined gold, evoking fine grocery and wine. Gold doubles as the call-to-action and “deal” accent. Anthracite anchors the dark surfaces; cream and white carry the light surfaces.</p>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Primary colors</h3>
+      <div class="sg-colors">
+        <div class="sg-color-card">
+          <div class="sg-color-swatch" style="background:#7b1e3b;">Bordeaux</div>
+          <div class="sg-color-info"><div class="sg-color-name">Bordeaux / Primary</div><div class="sg-color-hex">#7b1e3b</div><div class="sg-color-usage">Primary buttons, links, prices, accents</div></div>
+        </div>
+        <div class="sg-color-card">
+          <div class="sg-color-swatch" style="background:#651730;">Bordeaux dark</div>
+          <div class="sg-color-info"><div class="sg-color-name">Bordeaux hover</div><div class="sg-color-hex">#651730</div><div class="sg-color-usage">:hover state of primary buttons</div></div>
+        </div>
+        <div class="sg-color-card">
+          <div class="sg-color-swatch" style="background:#c8a24a;">Gold</div>
+          <div class="sg-color-info"><div class="sg-color-name">Gold / Accent</div><div class="sg-color-hex">#c8a24a</div><div class="sg-color-usage">Search CTA, logo, rating stars, deals</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Neutrals &amp; surfaces</h3>
+      <div class="sg-colors">
+        <div class="sg-color-card">
+          <div class="sg-color-swatch" style="background:#2b2d42;">Anthracite</div>
+          <div class="sg-color-info"><div class="sg-color-name">Anthracite / Dark base</div><div class="sg-color-hex">#2b2d42</div><div class="sg-color-usage">Header, footer, tags, headings</div></div>
+        </div>
+        <div class="sg-color-card">
+          <div class="sg-color-swatch" style="background:#faf3f0; color:#2b2d42;">Cream</div>
+          <div class="sg-color-info"><div class="sg-color-name">Cream</div><div class="sg-color-hex">#faf3f0</div><div class="sg-color-usage">Badges &amp; subtle surfaces</div></div>
+        </div>
+        <div class="sg-color-card">
+          <div class="sg-color-swatch" style="background:#b8923c;">Gold dark</div>
+          <div class="sg-color-info"><div class="sg-color-name">Gold hover</div><div class="sg-color-hex">#b8923c</div><div class="sg-color-usage">:hover state of the search button</div></div>
+        </div>
+        <div class="sg-color-card">
+          <div class="sg-color-swatch" style="background:#ffffff; color:#2b2d42; border-bottom:1px solid #e6ddd8;">White</div>
+          <div class="sg-color-info"><div class="sg-color-name">White</div><div class="sg-color-hex">#ffffff</div><div class="sg-color-usage">Page background, cards, form fields</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Text colors</h3>
+      <div class="sg-colors">
+        <div class="sg-color-card">
+          <div class="sg-color-swatch" style="background:#2b2d42;">Aa</div>
+          <div class="sg-color-info"><div class="sg-color-name">Primary text</div><div class="sg-color-hex">#2b2d42</div><div class="sg-color-usage">Headings, product names</div></div>
+        </div>
+        <div class="sg-color-card">
+          <div class="sg-color-swatch" style="background:#333333;">Aa</div>
+          <div class="sg-color-info"><div class="sg-color-name">Body text</div><div class="sg-color-hex">#333333</div><div class="sg-color-usage">Paragraphs, descriptions</div></div>
+        </div>
+        <div class="sg-color-card">
+          <div class="sg-color-swatch" style="background:#666666;">Aa</div>
+          <div class="sg-color-info"><div class="sg-color-name">Secondary text</div><div class="sg-color-hex">#666666</div><div class="sg-color-usage">Metadata, shipping, notes</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. TYPOGRAPHY -->
+  <section class="sg-section" id="typography">
+    <h2 class="sg-section-title">2. Typography</h2>
+    <p class="sg-section-desc">Two families: <strong>Poppins</strong> for headlines (friendly, rounded) and <strong>Inter</strong> for interface and body text.</p>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Headlines — Poppins</h3>
+      <div class="sg-type-sample">
+        <div class="sg-type-label">H1 · Product title</div>
+        <div style="font-family:'Poppins',sans-serif; font-weight:700; font-size:28px; color:#2b2d42; letter-spacing:-0.5px;">De'Longhi Magnifica Evo ECAM290.61.SB</div>
+        <div class="sg-type-meta">font-family: 'Poppins'; font-weight: 700; font-size: 28px</div>
+      </div>
+      <div class="sg-type-sample">
+        <div class="sg-type-label">H2 · Section title</div>
+        <div style="font-family:'Poppins',sans-serif; font-weight:700; font-size:22px; color:#2b2d42;">Avis des utilisateurs</div>
+        <div class="sg-type-meta">font-family: 'Poppins'; font-weight: 700; font-size: 22px</div>
+      </div>
+      <div class="sg-type-sample">
+        <div class="sg-type-label">H3 · Subtitle</div>
+        <div style="font-family:'Poppins',sans-serif; font-weight:600; font-size:19px; color:#2b2d42;">Fiche technique</div>
+        <div class="sg-type-meta">font-family: 'Poppins'; font-weight: 600; font-size: 19px</div>
+      </div>
+    </div>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Body text — Inter</h3>
+      <div class="sg-type-sample">
+        <div class="sg-type-label">Paragraph · 14 px</div>
+        <div style="font-family:'Inter',sans-serif; font-size:14px; color:#333;">Comparez les prix de l'épicerie, des vins et du café auprès des principales boutiques françaises. Trouvez la meilleure offre en quelques clics.</div>
+        <div class="sg-type-meta">font-family: 'Inter'; font-weight: 400; font-size: 14px; line-height: 1.6</div>
+      </div>
+      <div class="sg-type-sample">
+        <div class="sg-type-label">Metadata · 12–13 px</div>
+        <div style="font-family:'Inter',sans-serif; font-size:13px; color:#666;">Livraison gratuite · sous 3 à 5 jours · Fnac.com</div>
+        <div class="sg-type-meta">font-family: 'Inter'; font-weight: 400; font-size: 13px; color: #666</div>
+      </div>
+    </div>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Google Fonts integration</h3>
+      <div class="sg-code">&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?<span class="tok">family=Inter:wght@300;400;500;600;700</span>&amp;<span class="tok">family=Poppins:wght@400;500;600;700</span>&amp;display=swap"&gt;</div>
+    </div>
+  </section>
+
+  <!-- 3. BUTTONS -->
+  <section class="sg-section" id="buttons">
+    <h2 class="sg-section-title">3. Buttons</h2>
+    <p class="sg-section-desc">The primary button is bordeaux; its hover darkens to <code>#651730</code>. The gold button is reserved for the search action. The default button is outlined on white.</p>
+    <div class="sg-preview">
+      <div class="sg-preview-header">Variants</div>
+      <div class="sg-preview-body">
+        <a class="demo-btn primary" href="#buttons">Comparer les prix</a>
+        <a class="demo-btn secondary" href="#buttons">Voir l'offre</a>
+        <a class="demo-btn" href="#buttons">à la boutique</a>
+      </div>
+    </div>
+    <table class="sg-table">
+      <tr><th>Variant</th><th>Background</th><th>Text</th><th>Hover</th></tr>
+      <tr><td>Primary</td><td><code>#7b1e3b</code></td><td><code>#fff</code></td><td><code>#651730</code></td></tr>
+      <tr><td>Search (gold)</td><td><code>#c8a24a</code></td><td><code>#fff</code></td><td><code>#b8923c</code></td></tr>
+      <tr><td>Secondary</td><td><code>#2b2d42</code></td><td><code>#fff</code></td><td>—</td></tr>
+      <tr><td>Outline (default)</td><td><code>#fff</code></td><td><code>#2b2d42</code></td><td>border <code>#2b2d42</code></td></tr>
+    </table>
+  </section>
+
+  <!-- 4. FORMS -->
+  <section class="sg-section" id="forms">
+    <h2 class="sg-section-title">4. Forms</h2>
+    <p class="sg-section-desc">Fields on a white background with rounded corners. The header search combines an input + gold button.</p>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Search (header)</h3>
+      <div class="sg-preview">
+        <div class="sg-preview-header">.search-form</div>
+        <div class="sg-preview-body">
+          <div class="demo-search">
+            <input type="text" placeholder="Quel produit recherchez-vous ?">
+            <button type="button">Chercher</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Condition filter (sidebar)</h3>
+      <div class="sg-preview">
+        <div class="sg-preview-header">.offer-condition</div>
+        <div class="sg-preview-body">
+          <span class="demo-btn primary">Tous</span>
+          <span class="demo-btn">Neuf</span>
+          <span class="demo-btn">D'occasion</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. SPACING -->
+  <section class="sg-section" id="spacing">
+    <h2 class="sg-section-title">5. Spacing &amp; layout</h2>
+    <p class="sg-section-desc">Centered container with a max width. Spacing based on multiples of 4/8 px.</p>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Spacing scale</h3>
+      <div class="sg-spacing-item"><span class="label">4 px · xs</span><span class="sg-spacing-bar" style="width:4px;"></span></div>
+      <div class="sg-spacing-item"><span class="label">8 px · sm</span><span class="sg-spacing-bar" style="width:8px;"></span></div>
+      <div class="sg-spacing-item"><span class="label">12 px · md</span><span class="sg-spacing-bar" style="width:12px;"></span></div>
+      <div class="sg-spacing-item"><span class="label">16 px · lg</span><span class="sg-spacing-bar" style="width:16px;"></span></div>
+      <div class="sg-spacing-item"><span class="label">24 px · xl</span><span class="sg-spacing-bar" style="width:24px;"></span></div>
+      <div class="sg-spacing-item"><span class="label">40 px · 2xl</span><span class="sg-spacing-bar" style="width:40px;"></span></div>
+      <div class="sg-spacing-item"><span class="label">64 px · 3xl</span><span class="sg-spacing-bar" style="width:64px;"></span></div>
+    </div>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Responsive breakpoints</h3>
+      <table class="sg-table">
+        <tr><th>Name</th><th>min-width</th><th>Use</th></tr>
+        <tr><td>Mobile</td><td><code>&lt; 480px</code></td><td>Single column</td></tr>
+        <tr><td>Mobile L / Tablet</td><td><code>480–770px</code></td><td>2-column grid</td></tr>
+        <tr><td>Tablet</td><td><code>770px</code></td><td>Sidebar + content</td></tr>
+        <tr><td>Desktop</td><td><code>992px</code></td><td>Full grid</td></tr>
+        <tr><td>Desktop XL</td><td><code>1200px</code></td><td>Max container width</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- 6. COMPONENTS -->
+  <section class="sg-section" id="components">
+    <h2 class="sg-section-title">6. Components</h2>
+    <p class="sg-section-desc">Reusable blocks as they appear on the home, search and product pages.</p>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Breadcrumb</h3>
+      <div class="sg-preview"><div class="sg-preview-body">
+        <span class="demo-breadcrumb"><a href="#components">Accueil</a><span>›</span><a href="#components">Machines à café &amp; expresso</a><span>›</span>De'Longhi Magnifica Evo</span>
+      </div></div>
+    </div>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Tags &amp; badges</h3>
+      <div class="sg-preview"><div class="sg-preview-body">
+        <span class="demo-tag">#meilleurprix</span>
+        <span class="demo-badge">Vérifié</span>
+        <span class="demo-badge deal">Prix total le moins cher</span>
+      </div></div>
+    </div>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Price &amp; rating</h3>
+      <div class="sg-preview"><div class="sg-preview-body">
+        <span class="demo-price">369,99&nbsp;€</span>
+        <span class="demo-stars" title="4,5 sur 5"></span>
+        <span style="font-size:14px;color:#666;">4,5 (36)</span>
+      </div></div>
+    </div>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Product card</h3>
+      <div class="sg-preview"><div class="sg-preview-body">
+        <div class="demo-card">
+          <div class="demo-card__img"></div>
+          <div class="demo-card__title">De'Longhi Magnifica Evo ECAM290.61.SB</div>
+          <div class="demo-card__shop">Fnac.com</div>
+          <span class="demo-price" style="font-size:18px;">369,99&nbsp;€</span>
+          <div style="margin-top:10px;"><a class="demo-btn primary" style="width:100%;" href="#components">Comparer 5 prix</a></div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Header (on dark background)</h3>
+      <div class="sg-preview">
+        <div class="sg-preview-header">.header.header-common</div>
+        <div class="sg-preview-body sg-preview-body--dark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 56" width="200" height="36">
+            <g fill="#c8a24a" transform="translate(6,8)"><path d="M0 2 C0 -1, 12 -1, 12 2 C12 9, 8 12, 6 12 C4 12, 0 9, 0 2 Z"></path><rect x="5" y="12" width="2" height="9"></rect><rect x="0.5" y="21" width="11" height="2.5"></rect></g>
+            <text x="30" y="26" fill="#fff" font-family="Poppins, sans-serif" font-size="18" font-weight="700">meilleur-prix-épicerie<tspan fill="#c8a24a">.fr</tspan></text>
+          </svg>
+          <div class="demo-search" style="max-width:320px;"><input type="text" placeholder="Quel produit recherchez-vous ?"><button type="button">Chercher</button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. ICONS -->
+  <section class="sg-section" id="icons">
+    <h2 class="sg-section-title">7. Icons</h2>
+    <p class="sg-section-desc">Line icons (Lucide style), <code>2px</code> stroke, in gold <code>#c8a24a</code> on light surfaces or white on dark ones.</p>
+    <div class="sg-icon-grid">
+      <div class="sg-icon-item"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c8a24a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Search</span></div>
+      <div class="sg-icon-item"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c8a24a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Store</span></div>
+      <div class="sg-icon-item"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c8a24a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg><span>Categories</span></div>
+      <div class="sg-icon-item"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c8a24a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg><span>Verified</span></div>
+      <div class="sg-icon-item"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c8a24a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" x2="5" y1="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg><span>Deal</span></div>
+      <div class="sg-icon-item"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c8a24a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg><span>Survey</span></div>
+    </div>
+  </section>
+
+  <!-- 8. PAGE TYPES -->
+  <section class="sg-section" id="pages">
+    <h2 class="sg-section-title">8. Page types</h2>
+    <p class="sg-section-desc">The prototype covers three main templates, all sharing the same header, category menu and footer.</p>
+    <div class="sg-pages">
+      <div class="sg-page-card"><h3>Home</h3><p>Hero with search, trust bar, brand and shop carousels, category showcases, most-searched products and USP blocks.</p><a href="index.html">index.html →</a></div>
+      <div class="sg-page-card"><h3>Search</h3><p>Filter sidebar (sort, condition, price, categories, brands) + results grid with product cards and pagination.</p><a href="search.html">search.html →</a></div>
+      <div class="sg-page-card"><h3>Product</h3><p>Title with rating, per-shop offer list, spec sheet, user reviews and similar products.</p><a href="product.html">product.html →</a></div>
+    </div>
+  </section>
+
+  <footer class="sg-footer">
+    meilleur-prix-epicerie.fr — Style Guide · Generated for the grocery comparison prototype
+  </footer>
+
+</div>
+</body>
+</html>
