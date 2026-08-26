@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>electronicaganga.es — Style Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; color: #333; background: #f5f7f8; line-height: 1.6; }
+
+  /* Layout */
+  .sg-wrapper { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+  .sg-header { text-align: center; margin-bottom: 56px; padding: 40px 0; border-bottom: 2px solid #e0e0e0; }
+  .sg-header .sg-logo { display:inline-flex; align-items:center; gap:12px; margin-bottom:16px; }
+  .sg-header h1 { font-family: 'Space Grotesk', sans-serif; font-size: 40px; color: #1a1d29; letter-spacing: -0.5px; }
+  .sg-header p { font-size: 16px; color: #666; }
+
+  .sg-toc { background:#fff; border:1px solid #e0e0e0; border-radius:10px; padding:24px 28px; margin-bottom:56px; }
+  .sg-toc h2 { font-family:'Space Grotesk',sans-serif; font-size:16px; color:#1a1d29; margin-bottom:14px; text-transform:uppercase; letter-spacing:1px; }
+  .sg-toc ol { list-style:none; display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:8px 24px; counter-reset:toc; }
+  .sg-toc li { counter-increment:toc; }
+  .sg-toc a { color:#00bfa6; text-decoration:none; font-size:14px; font-weight:500; }
+  .sg-toc a::before { content:counter(toc) ". "; color:#999; font-weight:600; }
+  .sg-toc a:hover { text-decoration:underline; }
+
+  .sg-section { margin-bottom: 64px; scroll-margin-top: 20px; }
+  .sg-section-title { font-family:'Space Grotesk',sans-serif; font-size:28px; color:#1a1d29; margin-bottom:8px; padding-bottom:12px; border-bottom:3px solid #00bfa6; letter-spacing:-0.3px; }
+  .sg-section-desc { font-size:14px; color:#666; margin:16px 0 28px; max-width:720px; }
+  .sg-subsection { margin-bottom:36px; }
+  .sg-subsection-title { font-family:'Space Grotesk',sans-serif; font-size:19px; color:#1a1d29; margin-bottom:14px; }
+
+  /* Colors */
+  .sg-colors { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:16px; }
+  .sg-color-card { background:#fff; border:1px solid #e0e0e0; border-radius:10px; overflow:hidden; }
+  .sg-color-swatch { height:90px; display:flex; align-items:flex-end; justify-content:flex-start; padding:10px 12px; color:#fff; font-size:12px; font-weight:600; }
+  .sg-color-info { padding:12px 14px; }
+  .sg-color-name { font-weight:600; font-size:13px; color:#1a1d29; margin-bottom:4px; }
+  .sg-color-hex { font-size:12px; color:#666; font-family:'SFMono-Regular',Consolas,monospace; }
+  .sg-color-usage { font-size:11px; color:#888; margin-top:6px; }
+
+  /* Type samples */
+  .sg-type-sample { background:#fff; border:1px solid #e0e0e0; border-radius:10px; padding:24px; margin-bottom:14px; }
+  .sg-type-label { font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#999; margin-bottom:10px; }
+  .sg-type-meta { font-size:12px; color:#888; margin-top:10px; font-family:monospace; }
+
+  /* Preview boxes */
+  .sg-preview { background:#fff; border:1px solid #e0e0e0; border-radius:10px; overflow:hidden; margin-bottom:16px; }
+  .sg-preview-header { background:#f5f7f8; border-bottom:1px solid #e0e0e0; padding:8px 14px; font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#888; }
+  .sg-preview-body { padding:24px; display:flex; flex-wrap:wrap; gap:16px; align-items:center; }
+  .sg-preview-body--dark { background:#1a1d29; }
+
+  /* Code */
+  .sg-code { background:#1a1d29; color:#e6e6e6; border-radius:8px; padding:14px 16px; font-family:'SFMono-Regular',Consolas,monospace; font-size:12.5px; line-height:1.7; overflow-x:auto; white-space:pre; }
+  .sg-code .tok { color:#00bfa6; }
+
+  /* Tables */
+  .sg-table { width:100%; border-collapse:collapse; background:#fff; border:1px solid #e0e0e0; border-radius:10px; overflow:hidden; font-size:13.5px; }
+  .sg-table th, .sg-table td { text-align:left; padding:10px 14px; border-bottom:1px solid #eee; }
+  .sg-table th { background:#f5f7f8; font-weight:600; color:#1a1d29; }
+  .sg-table tr:last-child td { border-bottom:0; }
+  .sg-table code { font-family:monospace; font-size:12.5px; color:#00897b; background:#eef7f5; padding:1px 6px; border-radius:4px; }
+
+  /* Spacing */
+  .sg-spacing-item { display:flex; align-items:center; gap:16px; margin-bottom:10px; }
+  .sg-spacing-bar { background:#00bfa6; height:18px; border-radius:3px; }
+  .sg-spacing-item .label { font-family:monospace; font-size:12px; color:#666; width:120px; }
+
+  /* Live component demo styles (mirrors production tokens) */
+  .demo-btn { font-family:'Inter',sans-serif; font-size:13px; font-weight:600; border-radius:5px; padding:8px 18px; cursor:pointer; display:inline-block; text-align:center; border:1px solid #1a1d29; background:#fff; color:#1a1d29; text-decoration:none; }
+  .demo-btn.primary { background:#00bfa6; border-color:#00bfa6; color:#fff; }
+  .demo-btn.primary:hover { background:#009e8a; border-color:#009e8a; }
+  .demo-btn.secondary { background:#1a1d29; border-color:#1a1d29; color:#fff; }
+  .demo-tag { display:inline-block; background:#1a1d29; font-size:12px; font-weight:500; color:#fff; border-radius:12px; padding:3px 10px; }
+  .demo-badge { border-radius:5px; padding:1px 8px; color:#fff; background:#1a1d29; font-size:12px; }
+  .demo-badge.deal { background:#ff7a1a; }
+  .demo-search { display:flex; height:44px; background:#fff; border-radius:6px; overflow:hidden; box-shadow:0 2px 10px rgba(26,29,41,.12); max-width:480px; width:100%; }
+  .demo-search input { border:0; flex-grow:1; padding:0 14px; font-size:15px; color:#000; outline:none; }
+  .demo-search input::placeholder { color:#b8b8b8; }
+  .demo-search button { border:0; background:#00bfa6; color:#fff; font-weight:600; padding:0 22px; cursor:pointer; }
+  .demo-price { font-family:'Space Grotesk',sans-serif; font-weight:700; color:#ff7a1a; font-size:22px; }
+  .demo-stars { display:inline-block; width:110px; height:20px; vertical-align:middle;
+    background:linear-gradient(90deg,#ff7a1a 80%,#d6d6d6 80%);
+    -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='20' viewBox='0 0 110 20'%3E%3Cg fill='black'%3E%3Cpath d='M10 1l2.6 5.4 5.9.9-4.3 4.1 1 5.9L10 14.9 4.8 17.3l1-5.9L1.5 7.3l5.9-.9z'/%3E%3Cpath d='M32 1l2.6 5.4 5.9.9-4.3 4.1 1 5.9L32 14.9l-5.2 2.4 1-5.9-4.3-4.1 5.9-.9z'/%3E%3Cpath d='M54 1l2.6 5.4 5.9.9-4.3 4.1 1 5.9L54 14.9l-5.2 2.4 1-5.9-4.3-4.1 5.9-.9z'/%3E%3Cpath d='M76 1l2.6 5.4 5.9.9-4.3 4.1 1 5.9L76 14.9l-5.2 2.4 1-5.9-4.3-4.1 5.9-.9z'/%3E%3Cpath d='M98 1l2.6 5.4 5.9.9-4.3 4.1 1 5.9L98 14.9l-5.2 2.4 1-5.9-4.3-4.1 5.9-.9z'/%3E%3C/g%3E%3C/svg%3E") no-repeat;
+    mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='20' viewBox='0 0 110 20'%3E%3Cg fill='black'%3E%3Cpath d='M10 1l2.6 5.4 5.9.9-4.3 4.1 1 5.9L10 14.9 4.8 17.3l1-5.9L1.5 7.3l5.9-.9z'/%3E%3Cpath d='M32 1l2.6 5.4 5.9.9-4.3 4.1 1 5.9L32 14.9l-5.2 2.4 1-5.9-4.3-4.1 5.9-.9z'/%3E%3Cpath d='M54 1l2.6 5.4 5.9.9-4.3 4.1 1 5.9L54 14.9l-5.2 2.4 1-5.9-4.3-4.1 5.9-.9z'/%3E%3Cpath d='M76 1l2.6 5.4 5.9.9-4.3 4.1 1 5.9L76 14.9l-5.2 2.4 1-5.9-4.3-4.1 5.9-.9z'/%3E%3Cpath d='M98 1l2.6 5.4 5.9.9-4.3 4.1 1 5.9L98 14.9l-5.2 2.4 1-5.9-4.3-4.1 5.9-.9z'/%3E%3C/g%3E%3C/svg%3E") no-repeat; }
+  .demo-breadcrumb { font-size:13px; color:#666; }
+  .demo-breadcrumb a { color:#00bfa6; text-decoration:none; }
+  .demo-breadcrumb span { margin:0 8px; color:#ccc; }
+  .demo-card { width:200px; border:1px solid #e0e0e0; border-radius:8px; padding:14px; background:#fff; }
+  .demo-card__img { height:120px; background:#eef2f4; border-radius:6px; margin-bottom:10px; }
+  .demo-card__title { font-size:14px; font-weight:600; color:#1a1d29; margin-bottom:6px; line-height:1.3; }
+  .demo-card__shop { font-size:12px; color:#00bfa6; margin-bottom:4px; }
+  .sg-icon-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:12px; }
+  .sg-icon-item { background:#fff; border:1px solid #e0e0e0; border-radius:8px; padding:16px; text-align:center; }
+  .sg-icon-item svg { display:block; margin:0 auto 8px; }
+  .sg-icon-item span { font-size:11px; color:#888; }
+  .sg-pages { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px; }
+  .sg-page-card { background:#fff; border:1px solid #e0e0e0; border-radius:10px; padding:20px; }
+  .sg-page-card h3 { font-family:'Space Grotesk',sans-serif; font-size:16px; color:#1a1d29; margin-bottom:6px; }
+  .sg-page-card p { font-size:13px; color:#666; }
+  .sg-page-card a { color:#00bfa6; font-size:13px; font-weight:600; text-decoration:none; }
+  .sg-footer { margin-top:60px; padding-top:24px; border-top:2px solid #e0e0e0; text-align:center; font-size:13px; color:#999; }
+</style>
+</head>
+<body>
+<div class="sg-wrapper">
+
+  <header class="sg-header">
+    <div class="sg-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" width="240" height="42" viewBox="0 0 320 56" aria-label="electronicaganga.es">
+        <g fill="#00bfa6" transform="translate(4,14)">
+          <rect x="0" y="0" width="30" height="24" rx="4"></rect>
+          <rect x="8" y="7" width="14" height="10" fill="#1a1d29"></rect>
+          <rect x="-4" y="3" width="3" height="3"></rect><rect x="-4" y="10" width="3" height="3"></rect><rect x="-4" y="17" width="3" height="3"></rect>
+          <rect x="31" y="3" width="3" height="3"></rect><rect x="31" y="10" width="3" height="3"></rect><rect x="31" y="17" width="3" height="3"></rect>
+        </g>
+        <text x="44" y="26" fill="#1a1d29" font-family="Space Grotesk, sans-serif" font-size="18" font-weight="700" letter-spacing="-0.6">electronicaganga<tspan fill="#00bfa6">.es</tspan></text>
+        <text x="44" y="43" fill="rgba(26,29,41,0.55)" font-family="Inter, sans-serif" font-size="10" letter-spacing="0.4">comparador electrónica</text>
+      </svg>
+    </div>
+    <h1>Style Guide</h1>
+    <p>Design system for the electronics price comparison site · v1.0</p>
+  </header>
+
+  <nav class="sg-toc">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#colores">Color palette</a></li>
+      <li><a href="#tipografia">Typography</a></li>
+      <li><a href="#botones">Buttons</a></li>
+      <li><a href="#formularios">Forms</a></li>
+      <li><a href="#spacing">Spacing &amp; layout</a></li>
+      <li><a href="#componentes">Components</a></li>
+      <li><a href="#iconos">Icons</a></li>
+      <li><a href="#paginas">Page types</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1. COLORS -->
+  <section class="sg-section" id="colores">
+    <h2 class="sg-section-title">1. Color palette</h2>
+    <p class="sg-section-desc">The identity is built on a technical teal over a dark night-blue base. Orange acts as the “deal” accent (prices and featured offers). The rest are neutrals for text and surfaces.</p>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Primary colors</h3>
+      <div class="sg-colors">
+        <div class="sg-color-card">
+          <div class="sg-color-swatch" style="background:#00bfa6;">Teal</div>
+          <div class="sg-color-info"><div class="sg-color-name">Teal / Primary</div><div class="sg-color-hex">#00bfa6</div><div class="sg-color-usage">Buttons, links, icons, accents</div></div>
+        </div>
+        <div class="sg-color-card">
+          <div class="sg-color-swatch" style="background:#009e8a;">Teal dark</div>
+          <div class="sg-color-info"><div class="sg-color-name">Teal hover</div><div class="sg-color-hex">#009e8a</div><div class="sg-color-usage">:hover state of primary buttons</div></div>
+        </div>
+        <div class="sg-color-card">
+          <div class="sg-color-swatch" style="background:#ff7a1a;">Orange</div>
+          <div class="sg-color-info"><div class="sg-color-name">Orange / Deal</div><div class="sg-color-hex">#ff7a1a</div><div class="sg-color-usage">Prices, rating bars, deals</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Neutrals &amp; surfaces</h3>
+      <div class="sg-colors">
+        <div class="sg-color-card">
+          <div class="sg-color-swatch" style="background:#1a1d29;">Navy</div>
+          <div class="sg-color-info"><div class="sg-color-name">Night blue / Dark base</div><div class="sg-color-hex">#1a1d29</div><div class="sg-color-usage">Header, footer, tags, primary text</div></div>
+        </div>
+        <div class="sg-color-card">
+          <div class="sg-color-swatch" style="background:#eef2f4; color:#1a1d29;">Light grey</div>
+          <div class="sg-color-info"><div class="sg-color-name">Surface grey</div><div class="sg-color-hex">#eef2f4</div><div class="sg-color-usage">Section backgrounds, image placeholders</div></div>
+        </div>
+        <div class="sg-color-card">
+          <div class="sg-color-swatch" style="background:#f5f7f8; color:#1a1d29;">Off-white</div>
+          <div class="sg-color-info"><div class="sg-color-name">Off-white</div><div class="sg-color-hex">#f5f7f8</div><div class="sg-color-usage">Neutral canvas (this style guide)</div></div>
+        </div>
+        <div class="sg-color-card">
+          <div class="sg-color-swatch" style="background:#ffffff; color:#1a1d29; border-bottom:1px solid #e0e0e0;">White</div>
+          <div class="sg-color-info"><div class="sg-color-name">White</div><div class="sg-color-hex">#ffffff</div><div class="sg-color-usage">Page background, cards, form fields</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Text colors</h3>
+      <div class="sg-colors">
+        <div class="sg-color-card">
+          <div class="sg-color-swatch" style="background:#1a1d29;">Aa</div>
+          <div class="sg-color-info"><div class="sg-color-name">Primary text</div><div class="sg-color-hex">#1a1d29</div><div class="sg-color-usage">Headings, product names</div></div>
+        </div>
+        <div class="sg-color-card">
+          <div class="sg-color-swatch" style="background:#333333;">Aa</div>
+          <div class="sg-color-info"><div class="sg-color-name">Body text</div><div class="sg-color-hex">#333333</div><div class="sg-color-usage">Paragraphs, descriptions</div></div>
+        </div>
+        <div class="sg-color-card">
+          <div class="sg-color-swatch" style="background:#666666;">Aa</div>
+          <div class="sg-color-info"><div class="sg-color-name">Secondary text</div><div class="sg-color-hex">#666666</div><div class="sg-color-usage">Metadata, shipping, notes</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. TYPOGRAPHY -->
+  <section class="sg-section" id="tipografia">
+    <h2 class="sg-section-title">2. Typography</h2>
+    <p class="sg-section-desc">Two families: <strong>Space Grotesk</strong> for headlines (technical character) and <strong>Inter</strong> for interface and body text.</p>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Headlines — Space Grotesk</h3>
+      <div class="sg-type-sample">
+        <div class="sg-type-label">H1 · Product title</div>
+        <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:28px; color:#1a1d29; letter-spacing:-0.5px;">Samsung Galaxy A57 5G 256 GB</div>
+        <div class="sg-type-meta">font-family: 'Space Grotesk'; font-weight: 700; font-size: 28px</div>
+      </div>
+      <div class="sg-type-sample">
+        <div class="sg-type-label">H2 · Section title</div>
+        <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:22px; color:#1a1d29;">Opiniones de los usuarios</div>
+        <div class="sg-type-meta">font-family: 'Space Grotesk'; font-weight: 700; font-size: 22px</div>
+      </div>
+      <div class="sg-type-sample">
+        <div class="sg-type-label">H3 · Subtitle</div>
+        <div style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:19px; color:#1a1d29;">Datos técnicos</div>
+        <div class="sg-type-meta">font-family: 'Space Grotesk'; font-weight: 600; font-size: 19px</div>
+      </div>
+    </div>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Body text — Inter</h3>
+      <div class="sg-type-sample">
+        <div class="sg-type-label">Paragraph · 14 px</div>
+        <div style="font-family:'Inter',sans-serif; font-size:14px; color:#333;">Compara precios de electrónica de las principales tiendas españolas. La pantalla, la batería y la memoria marcan la diferencia en el día a día.</div>
+        <div class="sg-type-meta">font-family: 'Inter'; font-weight: 400; font-size: 14px; line-height: 1.6</div>
+      </div>
+      <div class="sg-type-sample">
+        <div class="sg-type-label">Metadata · 12–13 px</div>
+        <div style="font-family:'Inter',sans-serif; font-size:13px; color:#666;">Envío gratis · 2-3 días laborables · PcComponentes</div>
+        <div class="sg-type-meta">font-family: 'Inter'; font-weight: 400; font-size: 13px; color: #666</div>
+      </div>
+    </div>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Google Fonts integration</h3>
+      <div class="sg-code">&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?<span class="tok">family=Inter:wght@300;400;500;600;700</span>&amp;<span class="tok">family=Space+Grotesk:wght@400;500;600;700</span>&amp;display=swap"&gt;</div>
+    </div>
+  </section>
+
+  <!-- 3. BUTTONS -->
+  <section class="sg-section" id="botones">
+    <h2 class="sg-section-title">3. Buttons</h2>
+    <p class="sg-section-desc">The primary button is teal; its hover darkens to <code>#009e8a</code>. The default button is outlined on a white background.</p>
+    <div class="sg-preview">
+      <div class="sg-preview-header">Variants</div>
+      <div class="sg-preview-body">
+        <a class="demo-btn primary" href="#botones">Comparar precios</a>
+        <a class="demo-btn secondary" href="#botones">Ver oferta</a>
+        <a class="demo-btn" href="#botones">a la tienda</a>
+      </div>
+    </div>
+    <table class="sg-table">
+      <tr><th>Variant</th><th>Background</th><th>Text</th><th>Hover</th></tr>
+      <tr><td>Primary</td><td><code>#00bfa6</code></td><td><code>#fff</code></td><td><code>#009e8a</code></td></tr>
+      <tr><td>Secondary</td><td><code>#1a1d29</code></td><td><code>#fff</code></td><td>—</td></tr>
+      <tr><td>Outline (default)</td><td><code>#fff</code></td><td><code>#1a1d29</code></td><td>border <code>#1a1d29</code></td></tr>
+    </table>
+  </section>
+
+  <!-- 4. FORMS -->
+  <section class="sg-section" id="formularios">
+    <h2 class="sg-section-title">4. Forms</h2>
+    <p class="sg-section-desc">Fields on a white background with rounded corners. The header search combines an input + teal button.</p>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Search (header)</h3>
+      <div class="sg-preview">
+        <div class="sg-preview-header">.search-form</div>
+        <div class="sg-preview-body">
+          <div class="demo-search">
+            <input type="text" placeholder="¿Qué producto buscas?">
+            <button type="button">Buscar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Condition filter (sidebar)</h3>
+      <div class="sg-preview">
+        <div class="sg-preview-header">.offer-condition</div>
+        <div class="sg-preview-body">
+          <span class="demo-btn primary">Todos</span>
+          <span class="demo-btn">Nuevo</span>
+          <span class="demo-btn">Usado</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. SPACING -->
+  <section class="sg-section" id="spacing">
+    <h2 class="sg-section-title">5. Spacing &amp; layout</h2>
+    <p class="sg-section-desc">Centered container with a max width. Spacing based on multiples of 4/8 px.</p>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Spacing scale</h3>
+      <div class="sg-spacing-item"><span class="label">4 px · xs</span><span class="sg-spacing-bar" style="width:4px;"></span></div>
+      <div class="sg-spacing-item"><span class="label">8 px · sm</span><span class="sg-spacing-bar" style="width:8px;"></span></div>
+      <div class="sg-spacing-item"><span class="label">12 px · md</span><span class="sg-spacing-bar" style="width:12px;"></span></div>
+      <div class="sg-spacing-item"><span class="label">16 px · lg</span><span class="sg-spacing-bar" style="width:16px;"></span></div>
+      <div class="sg-spacing-item"><span class="label">24 px · xl</span><span class="sg-spacing-bar" style="width:24px;"></span></div>
+      <div class="sg-spacing-item"><span class="label">40 px · 2xl</span><span class="sg-spacing-bar" style="width:40px;"></span></div>
+      <div class="sg-spacing-item"><span class="label">64 px · 3xl</span><span class="sg-spacing-bar" style="width:64px;"></span></div>
+    </div>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Responsive breakpoints</h3>
+      <table class="sg-table">
+        <tr><th>Name</th><th>min-width</th><th>Use</th></tr>
+        <tr><td>Mobile</td><td><code>&lt; 480px</code></td><td>Single column</td></tr>
+        <tr><td>Mobile L / Tablet</td><td><code>480–770px</code></td><td>2-column grid</td></tr>
+        <tr><td>Tablet</td><td><code>770px</code></td><td>Sidebar + content</td></tr>
+        <tr><td>Desktop</td><td><code>992px</code></td><td>Full grid</td></tr>
+        <tr><td>Desktop XL</td><td><code>1200px</code></td><td>Max container width</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- 6. COMPONENTS -->
+  <section class="sg-section" id="componentes">
+    <h2 class="sg-section-title">6. Components</h2>
+    <p class="sg-section-desc">Reusable blocks as they appear on the home, search and product pages.</p>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Breadcrumb</h3>
+      <div class="sg-preview"><div class="sg-preview-body">
+        <span class="demo-breadcrumb"><a href="#componentes">Inicio</a><span>›</span><a href="#componentes">Móviles y smartphones</a><span>›</span>Samsung Galaxy A57 5G</span>
+      </div></div>
+    </div>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Tags &amp; badges</h3>
+      <div class="sg-preview"><div class="sg-preview-body">
+        <span class="demo-tag">#mejorprecio</span>
+        <span class="demo-badge">Verificado</span>
+        <span class="demo-badge deal">Precio total más bajo</span>
+      </div></div>
+    </div>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Price &amp; rating</h3>
+      <div class="sg-preview"><div class="sg-preview-body">
+        <span class="demo-price">349,00&nbsp;€</span>
+        <span class="demo-stars" title="4,0 de 5"></span>
+        <span style="font-size:14px;color:#666;">4,0 (1)</span>
+      </div></div>
+    </div>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Product card</h3>
+      <div class="sg-preview"><div class="sg-preview-body">
+        <div class="demo-card">
+          <div class="demo-card__img"></div>
+          <div class="demo-card__title">Samsung Galaxy A57 5G 256 GB</div>
+          <div class="demo-card__shop">PcComponentes</div>
+          <span class="demo-price" style="font-size:18px;">349,00&nbsp;€</span>
+          <div style="margin-top:10px;"><a class="demo-btn primary" style="width:100%;" href="#componentes">Comparar 5 precios</a></div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="sg-subsection">
+      <h3 class="sg-subsection-title">Header (on dark background)</h3>
+      <div class="sg-preview">
+        <div class="sg-preview-header">.header.header-common</div>
+        <div class="sg-preview-body sg-preview-body--dark">
+          <svg xmlns="http://www.w3.org/2000/svg" width="200" height="36" viewBox="0 0 320 56">
+            <g fill="#00bfa6" transform="translate(4,14)"><rect x="0" y="0" width="30" height="24" rx="4"></rect><rect x="8" y="7" width="14" height="10" fill="#1a1d29"></rect></g>
+            <text x="44" y="26" fill="#fff" font-family="Space Grotesk, sans-serif" font-size="18" font-weight="700">electronicaganga<tspan fill="#00bfa6">.es</tspan></text>
+          </svg>
+          <div class="demo-search" style="max-width:320px;"><input type="text" placeholder="¿Qué producto buscas?"><button type="button">Buscar</button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. ICONS -->
+  <section class="sg-section" id="iconos">
+    <h2 class="sg-section-title">7. Icons</h2>
+    <p class="sg-section-desc">Line icons (Lucide style), <code>2px</code> stroke, in teal <code>#00bfa6</code> on light surfaces or white on dark ones.</p>
+    <div class="sg-icon-grid">
+      <div class="sg-icon-item"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00bfa6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Search</span></div>
+      <div class="sg-icon-item"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00bfa6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Store</span></div>
+      <div class="sg-icon-item"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00bfa6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg><span>Categories</span></div>
+      <div class="sg-icon-item"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00bfa6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg><span>Verified</span></div>
+      <div class="sg-icon-item"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00bfa6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" x2="5" y1="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg><span>Deal</span></div>
+      <div class="sg-icon-item"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00bfa6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg><span>Survey</span></div>
+    </div>
+  </section>
+
+  <!-- 8. PAGE TYPES -->
+  <section class="sg-section" id="paginas">
+    <h2 class="sg-section-title">8. Page types</h2>
+    <p class="sg-section-desc">The prototype covers three main templates, all sharing the same header, category menu and footer.</p>
+    <div class="sg-pages">
+      <div class="sg-page-card"><h3>Home</h3><p>Hero with search, trust bar, brand and shop carousels, category showcases, most-searched products and USP blocks.</p><a href="index.html">index.html →</a></div>
+      <div class="sg-page-card"><h3>Search</h3><p>Filter sidebar (sort, condition, price, categories, brands) + results grid with product cards and pagination.</p><a href="search.html">search.html →</a></div>
+      <div class="sg-page-card"><h3>Product</h3><p>Title with rating, per-shop offer list, spec sheet, user reviews and similar products.</p><a href="product.html">product.html →</a></div>
+    </div>
+  </section>
+
+  <footer class="sg-footer">
+    electronicaganga.es — Style Guide · Generated for the electronics comparison prototype
+  </footer>
+
+</div>
+</body>
+</html>

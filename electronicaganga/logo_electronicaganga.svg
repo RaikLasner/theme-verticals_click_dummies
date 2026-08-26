@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1600" height="360" viewBox="0 0 1600 360" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .brand { font-family: Arial, Helvetica, sans-serif; font-size: 84px; font-weight: 700; fill: #ffffff; letter-spacing: -1.4px; }
+    .tld { fill: #00bfa6; }
+    .sub { font-family: Arial, Helvetica, sans-serif; font-size: 41px; fill: #d9d9d9; }
+  </style>
+
+  <path fill="#ffffff" fill-rule="evenodd" d="
+    M40,80 h120 a16,16 0 0 1 16,16 v88 a16,16 0 0 1 -16,16 h-120 a16,16 0 0 1 -16,-16 v-88 a16,16 0 0 1 16,-16 z
+    M75,115 h50 v50 h-50 z
+  "/>
+
+  <g fill="#ffffff">
+    <rect x="30" y="95" width="10" height="10"/>
+    <rect x="30" y="125" width="10" height="10"/>
+    <rect x="30" y="155" width="10" height="10"/>
+    <rect x="160" y="95" width="10" height="10"/>
+    <rect x="160" y="125" width="10" height="10"/>
+    <rect x="160" y="155" width="10" height="10"/>
+  </g>
+
+  <text x="220" y="140" class="brand">
+    electronicaganga<tspan class="tld">.es</tspan>
+  </text>
+
+  <!-- moved up from 210 to 190 -->
+  <text x="220" y="190" class="sub">comparador electrónica</text>
+</svg>
